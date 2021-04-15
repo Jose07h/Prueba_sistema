@@ -1,0 +1,29 @@
+*Conciliacion, desplegar por municipio -> por colonia -> por luminaria. (para coinciliar independiente) aceptado, en proceso
+
+*Listado de Programado vs Real (comparativa con porcentaje), con posibilidad de observaciones -> seccion diferente (administrador) "Programa"
+
+*Precargar georeferencias de la BD 2019 y pintar a manera de avance. Distinguir vialidad primaria y secundaria. (admin todo el mapa) (individual solo de su municipio). "Mapas y cartografias"
+
+*Reportes con logos , suma de luminarias (solo admin). 
+
+*Conciliacion, mapas, minutas (los usuarios).
+
+*"Seguridad"
+	->Cargar documentos diariamente (validar el dia) -> con calendario, documentos en pdf con fotografias (Rim,Rij,Supervicion,  esto lo sube el usuario) 
+
+*Comparativo Censo Luminarias -> grafica  	|---------|                la grafica es lo que debe resaltar. abajo la tabla
+					 	|	  |   |---------|
+						toluca 2019   toluca 2021
+
+	el admin ve todas las graficas, usuarios normales solo las de su municipio.
+
+*pestaña Informes (admin envia mes con mes se cambia el nombre de a quien se dirige y la fecha, esto lo sube el usuario), usuario solo lo recive e imprime. En cuanto reciva cambiar de color.
+
+
+
+
+descartar pestañas que no se requieran.
+ archivos solo pdf.
+
+Censo se alumbrado publico y alumbrados directa 2021 -> despues logo -> menú
+
