@@ -35,8 +35,8 @@
     {
         protected function DoBeforeCreate()
         {
-            $this->SetTitle('Conciliacion Municipio');
-            $this->SetMenuLabel('Conciliacion Municipio');
+            $this->SetTitle('Conciliacion Municipio por colonia');
+            $this->SetMenuLabel('Conciliacion Municipio por colonia');
     
             $this->dataset = new TableDataset(
                 MySqlIConnectionFactory::getInstance(),

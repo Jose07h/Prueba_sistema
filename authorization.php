@@ -12,8 +12,13 @@ include_once dirname(__FILE__) . '/' . 'database_engine/mysql_engine.php';
 
 
 
-$dataSourceRecordPermissions = array('conciliacion_validacion' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
-  'avance_luminarias_censadas' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
+$dataSourceRecordPermissions = array('conciliadas_por_municipio' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
+  'conciliadas_por_municipio.conciliadas_por_colonia' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
+  'conciliadas_por_municipio.conciliadas_por_colonia.conciliadas_detalle' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
+  'conciliadas_por_colonia' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
+  'conciliadas_detalle' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
+  'conciliacion_validacion' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
+  'luminarias' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
   'informes_municipio' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
   'cartografias_municipio' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
   'fichas_tecnicas_municipio' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
@@ -32,9 +37,16 @@ $dataSourceRecordPermissions = array('conciliacion_validacion' => new DataSource
   'vias_primarias_carga_por_colonia' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true),
   'vias_secundarias_carga_por_colonia' => new DataSourceRecordPermission('user_id', false, false, false, true, true, true));
 
-$tableCaptions = array('conciliacion_validacion' => 'Conciliacion',
-'conciliacion_municipio' => 'Conciliacion Municipio',
-'avance_luminarias_censadas' => 'Avance Luminarias Censadas',
+$tableCaptions = array('avance_semanal' => 'Avance censadas semanal',
+'conciliadas_por_municipio' => 'Avance conciliacion',
+'conciliadas_por_municipio.conciliadas_por_colonia' => 'Avance conciliacion->Conciliadas Por Colonia',
+'conciliadas_por_municipio.conciliadas_por_colonia.conciliadas_detalle' => 'Avance conciliacion->Conciliadas Por Colonia->Conciliadas Detalle',
+'conciliadas_por_colonia' => 'Conciliadas Por Colonia',
+'conciliadas_detalle' => 'Conciliadas Detalle',
+'programa_semanal' => 'Programa Semanal',
+'conciliacion_validacion' => 'Conciliacion por colonia',
+'luminarias' => 'Conciliacion por luminaria',
+'conciliacion_municipio' => 'Conciliacion Municipio por colonia',
 'informes' => 'Informes',
 'informes_municipio' => 'Informes Municipio',
 'cartografias' => 'Cartografias',
@@ -57,7 +69,8 @@ $tableCaptions = array('conciliacion_validacion' => 'Conciliacion',
 'carga_por_municipio_colonia' => 'Carga Por Municipio Colonia',
 'carga_por_municipio_tipo_luminarias' => 'Carga Por Municipio Tipo Luminarias',
 'vias_primarias_carga_por_colonia' => 'Vias Primarias Carga Por Colonia',
-'vias_secundarias_carga_por_colonia' => 'Vias Secundarias Carga Por Colonia');
+'vias_secundarias_carga_por_colonia' => 'Vias Secundarias Carga Por Colonia',
+'municipios' => 'Municipios');
 
 $usersTableInfo = array(
     'TableName' => 'phpgen_users',

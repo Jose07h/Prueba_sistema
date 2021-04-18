@@ -50,16 +50,1677 @@
       </PrimaryKeyFields>
     </DataSource>
     <DataSource name="comparativo_censo_luminarias"/>
-    <DataSource name="avance_luminarias_censadas"/>
     <DataSource name="seguridad_rij"/>
     <DataSource name="seguridad_rim"/>
     <DataSource name="seguridad_supervision"/>
     <DataSource name="vias_primarias_maestra"/>
     <DataSource name="vias_secundarias_maestra"/>
+    <DataSource name="municipios"/>
+    <DataSource name="luminarias"/>
+    <DataSource name="avance_semanal"/>
+    <DataSource name="programa_semanal"/>
+    <DataSource name="conciliadas_detalle"/>
+    <DataSource name="conciliadas_por_colonia"/>
+    <DataSource name="conciliadas_por_municipio"/>
   </DataSources>
   <Presentation disableMagicQuotesRuntime="false" showEnvironmentVariables="false" showExecutedQueries="false" showPHPErrorsAndWarnings="false" showBreadcrumbNavigation="false" menuMode="1" hasHomePage="false">
     <Pages>
-      <Page type="table" tableName="conciliacion_validacion" numberByDataSource="0" fileName="conciliacion_validacion" caption="Conciliacion" shortCaption="Conciliacion" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="1" viewAbilityMode="2" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" deleteAbilityMode="3" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="2" exportSelectedRecordsAvailable="2" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+      <Page type="table" tableName="avance_semanal" numberByDataSource="0" fileName="avance_semanal" caption="Avance censadas semanal" shortCaption="Avance censadas semanal" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="0" viewAbilityMode="0" editAbilityMode="0" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="3" exportSelectedRecordsAvailable="3" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+        <DefaultSortedColumns>
+          <Column fieldName="numero_semana_del_anio" orderType="0"/>
+        </DefaultSortedColumns>
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="numero_semana_del_anio" caption="Numero Semana Del Anio" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fecha_inicio_semana_programada" caption="Fecha Inicio Semana Programada" selectedFilterOperators="2031871">
+            <ViewProperties type="dateTime" dateTimeFormat="d-m-Y" dateTimeKind="1"/>
+            <EditProperties type="dateTime" dateTimeFormat="d-m-Y" dateTimeKind="1" firstDayOfWeek="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fecha_final_semana_programada" caption="Fecha Final Semana Programada" selectedFilterOperators="2031871">
+            <ViewProperties type="dateTime" dateTimeFormat="d-m-Y" dateTimeKind="1"/>
+            <EditProperties type="dateTime" dateTimeFormat="d-m-Y" dateTimeKind="1" firstDayOfWeek="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="eventos_programados" caption="Eventos Programados" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fecha_inicial_realizadas" caption="Fecha Inicial Realizadas" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text"/>
+            <EditProperties type="textBox" maxLength="10"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fecha_final_realizadas" caption="Fecha Final Realizadas" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text"/>
+            <EditProperties type="textBox" maxLength="10"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="eventos_realizados" caption="Eventos Realizados" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="eventos_avance_vs_programa" caption="Eventos Avance Vs Programa" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="porcentaje_de_avance" caption="Porcentaje De Avance" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </List>
+          <View>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </View>
+          <Edit>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </Print>
+          <Export>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </Export>
+          <Compare>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </Compare>
+          <MultiEdit>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_inicio_semana_programada"/>
+            <Column fieldName="fecha_final_semana_programada"/>
+            <Column fieldName="eventos_programados"/>
+            <Column fieldName="fecha_inicial_realizadas"/>
+            <Column fieldName="fecha_final_realizadas"/>
+            <Column fieldName="eventos_realizados"/>
+            <Column fieldName="eventos_avance_vs_programa"/>
+            <Column fieldName="porcentaje_de_avance"/>
+          </MultiEdit>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="conciliadas_por_municipio" numberByDataSource="0" fileName="conciliadas_por_municipio" caption="Avance conciliacion" shortCaption="Avance conciliacion" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="0" viewAbilityMode="0" editAbilityMode="0" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="3" exportSelectedRecordsAvailable="3" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="municipio" caption="Municipio" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_luminarias_por_conciliar" caption="Numero Luminarias Por Conciliar" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_luminarias_conciliadas" caption="Numero Luminarias Conciliadas" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="porcentaje avance" caption="Porcentaje Avance" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="user_id" caption="User Id" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </List>
+          <View>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </View>
+          <Edit>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Print>
+          <Export>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Export>
+          <Compare>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Compare>
+          <MultiEdit>
+            <Column fieldName="municipio"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </MultiEdit>
+        </Columns>
+        <Details>
+          <Detail caption="Conciliadas Por Colonia">
+            <Page type="table" tableName="conciliadas_por_colonia" numberByDataSource="0" fileName="conciliadas_por_colonia" caption="Conciliadas Por Colonia" shortCaption="Conciliadas Por Colonia" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="0" viewAbilityMode="0" editAbilityMode="0" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="10" exportSelectedRecordsAvailable="10" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+              <BeforeGridText/>
+              <DetailedDescription/>
+              <ColumnPresentations>
+                <ColumnPresentation fieldName="municipio_colonia" caption="Municipio Colonia" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                  <ViewProperties type="text" maxLength="100"/>
+                  <EditProperties type="textBox" maxLength="511"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="municipio" caption="Municipio" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                  <ViewProperties type="text" maxLength="100"/>
+                  <EditProperties type="textBox" maxLength="255"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="colonia" caption="Colonia" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                  <ViewProperties type="text" maxLength="100"/>
+                  <EditProperties type="textBox" maxLength="255"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="numero_luminarias_por_conciliar" caption="Numero Luminarias Por Conciliar" showColumnFilter="false" selectedFilterOperators="1573119">
+                  <ViewProperties type="text">
+                    <Format type="number" thousandSeparator=","/>
+                  </ViewProperties>
+                  <EditProperties type="textBox" maxLength="0"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="numero_luminarias_conciliadas" caption="Numero Luminarias Conciliadas" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                  <ViewProperties type="text">
+                    <Format type="number" thousandSeparator=","/>
+                  </ViewProperties>
+                  <EditProperties type="textBox" maxLength="0"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="porcentaje avance" caption="Porcentaje Avance" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                  <ViewProperties type="text">
+                    <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+                  </ViewProperties>
+                  <EditProperties type="textBox" maxLength="0"/>
+                </ColumnPresentation>
+                <ColumnPresentation fieldName="user_id" caption="User Id" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                  <ViewProperties type="text">
+                    <Format type="number" thousandSeparator=","/>
+                  </ViewProperties>
+                  <EditProperties type="textBox" maxLength="0"/>
+                </ColumnPresentation>
+              </ColumnPresentations>
+              <Columns>
+                <List>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </List>
+                <View>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </View>
+                <Edit>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </Edit>
+                <Insert>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </Insert>
+                <QuickFilter>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </QuickFilter>
+                <FilterBuilder>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </FilterBuilder>
+                <Print>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </Print>
+                <Export>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </Export>
+                <Compare>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </Compare>
+                <MultiEdit>
+                  <Column fieldName="municipio_colonia"/>
+                  <Column fieldName="municipio"/>
+                  <Column fieldName="colonia"/>
+                  <Column fieldName="numero_luminarias_por_conciliar"/>
+                  <Column fieldName="numero_luminarias_conciliadas"/>
+                  <Column fieldName="porcentaje avance"/>
+                  <Column fieldName="user_id"/>
+                </MultiEdit>
+              </Columns>
+              <Details>
+                <Detail caption="Conciliadas Detalle">
+                  <Page type="table" tableName="conciliadas_detalle" numberByDataSource="0" fileName="conciliadas_detalle" caption="Conciliadas Detalle" shortCaption="Conciliadas Detalle" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="0" viewAbilityMode="0" editAbilityMode="0" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="10" exportSelectedRecordsAvailable="10" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+                    <BeforeGridText/>
+                    <DetailedDescription/>
+                    <ColumnPresentations>
+                      <ColumnPresentation fieldName="conciliada" caption="Conciliada" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="id_lum" caption="Id Lum" showColumnFilter="false" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="fecha_captura" caption="Fecha Captura" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text"/>
+                        <EditProperties type="textBox" maxLength="10"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="hora" caption="Hora" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="latitude" caption="Latitude" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="longitude" caption="Longitude" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="estado_poste" caption="Estado Poste" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="tipo_carcaza" caption="Tipo Carcaza" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="horas_uso" caption="Horas Uso" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="numero_de_lamparas" caption="Numero De Lamparas" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="municipio" caption="Municipio" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="colonia" caption="Colonia" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="calle" caption="Calle" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="tipo_de_calle" caption="Tipo De Calle" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="via" caption="Via" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="numero_de_medidor" caption="Numero De Medidor" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="carga_aceptada" caption="Carga Aceptada" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="tipo_poste" caption="Tipo Poste" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="estado_luminaria" caption="Estado Luminaria" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="observaciones" caption="Observaciones" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="tipo_de_luminaria" caption="Tipo De Luminaria" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="watts" caption="Watts" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="porcentaje_perdida" caption="Porcentaje Perdida" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="tipo_balastro" caption="Tipo Balastro" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="255"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="subtotal_kw" caption="Subtotal Kw" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="perdida_kw" caption="Perdida Kw" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="carga_kw" caption="Carga Kw" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="cpd" caption="Cpd" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="user_id" caption="User Id" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+                        <ViewProperties type="text">
+                          <Format type="number" thousandSeparator=","/>
+                        </ViewProperties>
+                        <EditProperties type="textBox" maxLength="0"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="fotografia" caption="Fotografia" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="261"/>
+                      </ColumnPresentation>
+                      <ColumnPresentation fieldName="fotografia_2" caption="Fotografia 2" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+                        <ViewProperties type="text" maxLength="100"/>
+                        <EditProperties type="textBox" maxLength="261"/>
+                      </ColumnPresentation>
+                    </ColumnPresentations>
+                    <Columns>
+                      <List>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </List>
+                      <View>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </View>
+                      <Edit>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </Edit>
+                      <Insert>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </Insert>
+                      <QuickFilter>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </QuickFilter>
+                      <FilterBuilder>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </FilterBuilder>
+                      <Print>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </Print>
+                      <Export>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </Export>
+                      <Compare>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </Compare>
+                      <MultiEdit>
+                        <Column fieldName="conciliada"/>
+                        <Column fieldName="id_lum"/>
+                        <Column fieldName="fecha_captura"/>
+                        <Column fieldName="hora"/>
+                        <Column fieldName="latitude"/>
+                        <Column fieldName="longitude"/>
+                        <Column fieldName="estado_poste"/>
+                        <Column fieldName="tipo_carcaza"/>
+                        <Column fieldName="horas_uso"/>
+                        <Column fieldName="numero_de_lamparas"/>
+                        <Column fieldName="municipio"/>
+                        <Column fieldName="colonia"/>
+                        <Column fieldName="calle"/>
+                        <Column fieldName="tipo_de_calle"/>
+                        <Column fieldName="via"/>
+                        <Column fieldName="numero_de_medidor"/>
+                        <Column fieldName="carga_aceptada"/>
+                        <Column fieldName="tipo_poste"/>
+                        <Column fieldName="estado_luminaria"/>
+                        <Column fieldName="observaciones"/>
+                        <Column fieldName="tipo_de_luminaria"/>
+                        <Column fieldName="watts"/>
+                        <Column fieldName="porcentaje_perdida"/>
+                        <Column fieldName="tipo_balastro"/>
+                        <Column fieldName="subtotal_kw"/>
+                        <Column fieldName="perdida_kw"/>
+                        <Column fieldName="carga_kw"/>
+                        <Column fieldName="cpd"/>
+                        <Column fieldName="user_id"/>
+                        <Column fieldName="fotografia"/>
+                        <Column fieldName="fotografia_2"/>
+                      </MultiEdit>
+                    </Columns>
+                    <Details/>
+                    <RecordPermissions useRecordPermissions="true" ownerIdFieldName="user_id">
+                      <AllUsersPermission view="false" edit="false" delete="false"/>
+                      <OwnerPermission view="true" edit="true" delete="true"/>
+                    </RecordPermissions>
+                    <PartitionNavigators/>
+                  </Page>
+                  <MasterForeignKeyColumnMap>
+                    <FieldMap masterColumnName="colonia" foreginColumnName="colonia"/>
+                  </MasterForeignKeyColumnMap>
+                </Detail>
+              </Details>
+              <RecordPermissions useRecordPermissions="true" ownerIdFieldName="user_id">
+                <AllUsersPermission view="false" edit="false" delete="false"/>
+                <OwnerPermission view="true" edit="true" delete="true"/>
+              </RecordPermissions>
+              <PartitionNavigators/>
+            </Page>
+            <MasterForeignKeyColumnMap>
+              <FieldMap masterColumnName="municipio" foreginColumnName="municipio"/>
+            </MasterForeignKeyColumnMap>
+          </Detail>
+        </Details>
+        <RecordPermissions useRecordPermissions="true" ownerIdFieldName="user_id">
+          <AllUsersPermission view="false" edit="false" delete="false"/>
+          <OwnerPermission view="true" edit="true" delete="true"/>
+        </RecordPermissions>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="conciliadas_por_colonia" includedIntoPageList="false" numberByDataSource="0" fileName="conciliadas_por_colonia" caption="Conciliadas Por Colonia" shortCaption="Conciliadas Por Colonia" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="0" viewAbilityMode="0" editAbilityMode="0" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="3" exportSelectedRecordsAvailable="3" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="municipio_colonia" caption="Municipio Colonia" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="511"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="municipio" caption="Municipio" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="colonia" caption="Colonia" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_luminarias_por_conciliar" caption="Numero Luminarias Por Conciliar" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_luminarias_conciliadas" caption="Numero Luminarias Conciliadas" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="porcentaje avance" caption="Porcentaje Avance" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="user_id" caption="User Id" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </List>
+          <View>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </View>
+          <Edit>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Print>
+          <Export>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Export>
+          <Compare>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </Compare>
+          <MultiEdit>
+            <Column fieldName="municipio_colonia"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="numero_luminarias_por_conciliar"/>
+            <Column fieldName="numero_luminarias_conciliadas"/>
+            <Column fieldName="porcentaje avance"/>
+            <Column fieldName="user_id"/>
+          </MultiEdit>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="true" ownerIdFieldName="user_id">
+          <AllUsersPermission view="false" edit="false" delete="false"/>
+          <OwnerPermission view="true" edit="true" delete="true"/>
+        </RecordPermissions>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="conciliadas_detalle" includedIntoPageList="false" numberByDataSource="0" fileName="conciliadas_detalle" caption="Conciliadas Detalle" shortCaption="Conciliadas Detalle" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="0" viewAbilityMode="0" editAbilityMode="0" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="26" exportSelectedRecordsAvailable="26" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="conciliada" caption="Conciliada" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="checkBox">
+              <DivAttributes align="center"/>
+            </ViewProperties>
+            <EditProperties type="checkBox"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="id_lum" caption="Id Lum" showColumnFilter="false" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fecha_captura" caption="Fecha Captura" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text"/>
+            <EditProperties type="textBox" maxLength="10"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="hora" caption="Hora" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="latitude" caption="Latitude" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="longitude" caption="Longitude" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="estado_poste" caption="Estado Poste" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_carcaza" caption="Tipo Carcaza" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="horas_uso" caption="Horas Uso" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_de_lamparas" caption="Numero De Lamparas" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="municipio" caption="Municipio" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="colonia" caption="Colonia" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="calle" caption="Calle" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_de_calle" caption="Tipo De Calle" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="via" caption="Via" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_de_medidor" caption="Numero De Medidor" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="carga_aceptada" caption="Carga Aceptada" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_poste" caption="Tipo Poste" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="estado_luminaria" caption="Estado Luminaria" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="observaciones" caption="Observaciones" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_de_luminaria" caption="Tipo De Luminaria" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="watts" caption="Watts" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="porcentaje_perdida" caption="Porcentaje Perdida" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_balastro" caption="Tipo Balastro" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="subtotal_kw" caption="Subtotal Kw" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="perdida_kw" caption="Perdida Kw" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="carga_kw" caption="Carga Kw" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="cpd" caption="Cpd" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="user_id" caption="User Id" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fotografia" caption="Fotografia" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <Hyperlink template="%fotografia%"/>
+            <EditProperties type="textBox" maxLength="261"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fotografia_2" caption="Fotografia 2" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <Hyperlink template="%fotografia_2%"/>
+            <EditProperties type="textBox" maxLength="261"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </List>
+          <View>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </View>
+          <Edit>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </Print>
+          <Export>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </Export>
+          <Compare>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </Compare>
+          <MultiEdit>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id_lum"/>
+            <Column fieldName="fecha_captura"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="latitude"/>
+            <Column fieldName="longitude"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="watts"/>
+            <Column fieldName="porcentaje_perdida"/>
+            <Column fieldName="tipo_balastro"/>
+            <Column fieldName="subtotal_kw"/>
+            <Column fieldName="perdida_kw"/>
+            <Column fieldName="carga_kw"/>
+            <Column fieldName="cpd"/>
+            <Column fieldName="user_id"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+          </MultiEdit>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="true" ownerIdFieldName="user_id">
+          <AllUsersPermission view="false" edit="false" delete="false"/>
+          <OwnerPermission view="true" edit="true" delete="true"/>
+        </RecordPermissions>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="programa_semanal" numberByDataSource="0" fileName="programa_semanal" caption="Programa Semanal" shortCaption="Programa Semanal" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="1" viewAbilityMode="2" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" deleteAbilityMode="3" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="3" exportSelectedRecordsAvailable="3" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="id_programa" caption="Id Programa" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_semana_del_anio" caption="Numero Semana Del Anio" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fecha_semana_lunes" caption="Fecha Semana Lunes" selectedFilterOperators="2031871">
+            <ViewProperties type="dateTime" dateTimeFormat="d-m-Y" dateTimeKind="1"/>
+            <EditProperties type="dateTime" dateTimeFormat="d-m-Y" dateTimeKind="1" firstDayOfWeek="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fecha_semana_domingo" caption="Fecha Semana Domingo" selectedFilterOperators="2031871">
+            <ViewProperties type="dateTime" dateTimeFormat="d-m-Y" dateTimeKind="1"/>
+            <EditProperties type="dateTime" dateTimeFormat="d-m-Y" dateTimeKind="1" firstDayOfWeek="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="eventos_programados" caption="Eventos Programados" showColumnFilter="false" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="id_programa"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </List>
+          <View>
+            <Column fieldName="id_programa"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </View>
+          <Edit>
+            <Column fieldName="id_programa" visible="false"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="id_programa" visible="false"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="id_programa"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="id_programa"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="id_programa"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </Print>
+          <Export>
+            <Column fieldName="id_programa"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </Export>
+          <Compare>
+            <Column fieldName="id_programa" visible="false"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </Compare>
+          <MultiEdit>
+            <Column fieldName="id_programa" visible="false"/>
+            <Column fieldName="numero_semana_del_anio"/>
+            <Column fieldName="fecha_semana_lunes"/>
+            <Column fieldName="fecha_semana_domingo"/>
+            <Column fieldName="eventos_programados"/>
+          </MultiEdit>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="conciliacion_validacion" numberByDataSource="0" fileName="conciliacion_validacion" caption="Conciliacion por colonia" shortCaption="Conciliacion por colonia" groupName="Conciliacion" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="1" viewAbilityMode="2" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" deleteAbilityMode="3" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="2" exportSelectedRecordsAvailable="2" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
         <BeforeGridText/>
         <DetailedDescription/>
         <ColumnPresentations>
@@ -195,7 +1856,392 @@
         </RecordPermissions>
         <PartitionNavigators/>
       </Page>
-      <Page type="table" tableName="conciliacion_municipio" numberByDataSource="0" fileName="conciliacion_municipio" caption="Conciliacion Municipio" shortCaption="Conciliacion Municipio" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="1" viewAbilityMode="2" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" deleteAbilityMode="3" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="2" exportSelectedRecordsAvailable="2" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+      <Page type="table" tableName="luminarias" numberByDataSource="0" fileName="luminarias" caption="Conciliacion por luminaria" shortCaption="Conciliacion por luminaria" groupName="Conciliacion" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="0" viewAbilityMode="2" editAbilityMode="2" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="2" exportSelectedRecordsAvailable="2" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+        <DefaultSortedColumns>
+          <Column fieldName="municipio" orderType="0"/>
+          <Column fieldName="operador" orderType="0"/>
+          <Column fieldName="fecha" orderType="0"/>
+          <Column fieldName="hora" orderType="0"/>
+        </DefaultSortedColumns>
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="conciliada" caption="Conciliada" canSetNull="true" selectedFilterOperators="1573119">
+            <ViewProperties type="checkBox">
+              <DivAttributes align="center"/>
+            </ViewProperties>
+            <EditProperties type="checkBox"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="id" caption="Id" showColumnFilter="false" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fecha" caption="Fecha" canSetNull="true" readOnly="true" selectedFilterOperators="2031871">
+            <ViewProperties type="dateTime" dateTimeFormat="d-m-Y H:i:s"/>
+            <EditProperties type="dateTime" dateTimeFormat="d-m-Y H:i:s" firstDayOfWeek="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="hora" caption="Hora" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="operador" caption="Operador" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="coordenadas" caption="Coordenadas" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="estado_poste" caption="Estado Poste" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_carcaza" caption="Tipo Carcaza" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="horas_uso" caption="Horas Uso" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_de_lamparas" caption="Numero De Lamparas" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="municipio" caption="Municipio" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="colonia" caption="Colonia" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="calle" caption="Calle" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_de_calle" caption="Tipo De Calle" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="via" caption="Via" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="numero_de_medidor" caption="Numero De Medidor" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="carga_aceptada" caption="Carga Aceptada" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_poste" caption="Tipo Poste" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="estado_luminaria" caption="Estado Luminaria" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="observaciones" caption="Observaciones" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="tipo_de_luminaria" caption="Tipo De Luminaria" canSetNull="true" readOnly="true" selectedFilterOperators="1573119">
+            <Lookup tableName="tipos_luminarias" linkFieldName="tipo_de_luminaria" displayFieldName="watts" lookupFilter="" useLookupOrdering="true" lookupOrdering="0"/>
+            <ViewProperties type="text">
+              <Format type="number" numberAfterDecimal="2" decimalSeparator="." thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="dynamicCombobox"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fotografia" caption="Fotografia" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="fotografia_2" caption="Fotografia 2" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="user_id" caption="User Id" showColumnFilter="false" canSetNull="true" readOnly="true" selectedFilterOperators="1573119">
+            <ViewProperties type="text">
+              <Format type="number" thousandSeparator=","/>
+            </ViewProperties>
+            <EditProperties type="textBox" maxLength="0"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </List>
+          <View>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </View>
+          <Edit>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="user_id"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </Print>
+          <Export>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </Export>
+          <Compare>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </Compare>
+          <MultiEdit>
+            <Column fieldName="conciliada"/>
+            <Column fieldName="id" visible="false"/>
+            <Column fieldName="fecha"/>
+            <Column fieldName="hora"/>
+            <Column fieldName="operador"/>
+            <Column fieldName="coordenadas"/>
+            <Column fieldName="estado_poste"/>
+            <Column fieldName="tipo_carcaza"/>
+            <Column fieldName="horas_uso"/>
+            <Column fieldName="numero_de_lamparas"/>
+            <Column fieldName="municipio"/>
+            <Column fieldName="colonia"/>
+            <Column fieldName="calle"/>
+            <Column fieldName="tipo_de_calle"/>
+            <Column fieldName="via"/>
+            <Column fieldName="numero_de_medidor"/>
+            <Column fieldName="carga_aceptada"/>
+            <Column fieldName="tipo_poste"/>
+            <Column fieldName="estado_luminaria"/>
+            <Column fieldName="observaciones"/>
+            <Column fieldName="tipo_de_luminaria"/>
+            <Column fieldName="fotografia"/>
+            <Column fieldName="fotografia_2"/>
+            <Column fieldName="user_id"/>
+          </MultiEdit>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="true" ownerIdFieldName="user_id">
+          <AllUsersPermission view="false" edit="false" delete="false"/>
+          <OwnerPermission view="true" edit="true" delete="true"/>
+        </RecordPermissions>
+        <PartitionNavigators/>
+      </Page>
+      <Page type="table" tableName="conciliacion_municipio" numberByDataSource="0" fileName="conciliacion_municipio" caption="Conciliacion Municipio por colonia" shortCaption="Conciliacion Municipio por colonia" groupName="Conciliacion" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="1" viewAbilityMode="2" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" deleteAbilityMode="3" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="2" exportSelectedRecordsAvailable="2" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
         <BeforeGridText/>
         <DetailedDescription/>
         <ColumnPresentations>
@@ -326,104 +2372,6 @@
         </Columns>
         <Details/>
         <RecordPermissions useRecordPermissions="false"/>
-        <PartitionNavigators/>
-      </Page>
-      <Page type="table" tableName="avance_luminarias_censadas" numberByDataSource="0" fileName="avance_luminarias_censadas" caption="Avance Luminarias Censadas" shortCaption="Avance Luminarias Censadas" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="0" viewAbilityMode="0" editAbilityMode="0" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="2" exportSelectedRecordsAvailable="2" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
-        <DefaultSortedColumns>
-          <Column fieldName="fecha_captura" orderType="1"/>
-          <Column fieldName="municipio" orderType="0"/>
-        </DefaultSortedColumns>
-        <BeforeGridText/>
-        <DetailedDescription/>
-        <ColumnPresentations>
-          <ColumnPresentation fieldName="municipio" caption="Municipio" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
-            <ViewProperties type="text" maxLength="100"/>
-            <EditProperties type="textBox" maxLength="255"/>
-          </ColumnPresentation>
-          <ColumnPresentation fieldName="fecha_captura" caption="Fecha Captura" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
-            <ViewProperties type="text"/>
-            <EditProperties type="textBox" maxLength="10"/>
-          </ColumnPresentation>
-          <ColumnPresentation fieldName="luminarias_censadas" caption="Luminarias Censadas" showColumnFilter="false" selectedFilterOperators="1573119">
-            <ViewProperties type="text">
-              <Format type="number" thousandSeparator=","/>
-            </ViewProperties>
-            <EditProperties type="textBox" maxLength="0"/>
-          </ColumnPresentation>
-          <ColumnPresentation fieldName="user_id" caption="User Id" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1573119">
-            <ViewProperties type="text">
-              <Format type="number" thousandSeparator=","/>
-            </ViewProperties>
-            <EditProperties type="textBox" maxLength="0"/>
-          </ColumnPresentation>
-        </ColumnPresentations>
-        <Columns>
-          <List>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </List>
-          <View>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </View>
-          <Edit>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </Edit>
-          <Insert>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </Insert>
-          <QuickFilter>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </QuickFilter>
-          <FilterBuilder>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </FilterBuilder>
-          <Print>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </Print>
-          <Export>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </Export>
-          <Compare>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </Compare>
-          <MultiEdit>
-            <Column fieldName="municipio"/>
-            <Column fieldName="fecha_captura"/>
-            <Column fieldName="luminarias_censadas"/>
-            <Column fieldName="user_id"/>
-          </MultiEdit>
-        </Columns>
-        <Details/>
-        <RecordPermissions useRecordPermissions="true" ownerIdFieldName="user_id">
-          <AllUsersPermission view="false" edit="false" delete="false"/>
-          <OwnerPermission view="true" edit="true" delete="true"/>
-        </RecordPermissions>
         <PartitionNavigators/>
       </Page>
       <Page type="table" tableName="informes" numberByDataSource="0" fileName="informes" caption="Informes" shortCaption="Informes" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="1" viewAbilityMode="2" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" deleteAbilityMode="3" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="2" exportSelectedRecordsAvailable="2" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
@@ -5401,6 +7349,79 @@
         </RecordPermissions>
         <PartitionNavigators/>
       </Page>
+      <Page type="table" tableName="municipios" numberByDataSource="0" fileName="municipios" caption="Municipios" shortCaption="Municipios" addSeparator="false" horizontalFilterCondition="" recordsPerPage="100" NavigatorPosition="2" insertAbilityMode="1" viewAbilityMode="2" multiEditAbility="0" includeAllFieldsForMultiEditByDefault="false" deleteAbilityMode="3" copyAbilityMode="0" contentEncoding="UTF-8" controlButtonsPosition="1" exportAllRecordsAvailable="10" exportSelectedRecordsAvailable="10" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="0" printAvailable="0" openPrintFormInNewTab="false" openExportedPdfInNewTab="false" filterBuilderAvailable="false" useActionImages="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false" refreshAvailable="false" reloadPageAfterAjaxOperation="true" formErrorsPlacement="2">
+        <BeforeGridText/>
+        <DetailedDescription/>
+        <ColumnPresentations>
+          <ColumnPresentation fieldName="nombre_municipio" caption="Nombre Municipio" selectedFilterOperators="1589247">
+            <ViewProperties type="text"/>
+            <EditProperties type="textBox" maxLength="60"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="zona" caption="Zona" selectedFilterOperators="1589247">
+            <ViewProperties type="text"/>
+            <EditProperties type="textBox" maxLength="5"/>
+          </ColumnPresentation>
+          <ColumnPresentation fieldName="observaciones" caption="Observaciones" canSetNull="true" selectedFilterOperators="1589247">
+            <ViewProperties type="text" maxLength="100"/>
+            <EditProperties type="textBox" maxLength="255"/>
+          </ColumnPresentation>
+        </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </List>
+          <View>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </View>
+          <Edit>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </Print>
+          <Export>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </Export>
+          <Compare>
+            <Column fieldName="nombre_municipio"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </Compare>
+          <MultiEdit>
+            <Column fieldName="nombre_municipio" visible="false"/>
+            <Column fieldName="zona"/>
+            <Column fieldName="observaciones"/>
+          </MultiEdit>
+        </Columns>
+        <Details/>
+        <RecordPermissions useRecordPermissions="false"/>
+        <PartitionNavigators/>
+      </Page>
     </Pages>
     <UserAuthorization type="tableBased" tableName="phpgen_users" userIdField="user_id" userNameField="user_name" passwordField="user_password" allowUserToChangePassword="false"/>
     <UserGrants enableGuestAccess="false" storageType="table">
@@ -5464,10 +7485,10 @@
     <PHPOptions/>
     <Groups>
       <Group caption="No group"/>
+      <Group caption="Conciliacion"/>
       <Group caption="Seguridad"/>
       <Group caption="Reportes Anexo 2"/>
       <Group caption="Detalle Y Mapas"/>
-      <Group caption="Documentos"/>
     </Groups>
     <outgoingMailSettings mailer="0" fromEmail="" fromName=""/>
   </Presentation>

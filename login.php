@@ -35,7 +35,7 @@ function OnBeforeLogout($userName, EngConnection $connection) {
 SetUpUserAuthorization();
 
 $page = new LoginPage(
-    'conciliacion_validacion.php',
+    'avance_semanal.php',
     dirname(__FILE__),
     GetApplication()->GetUserAuthentication(),
     MySqlIConnectionFactory::getInstance(),

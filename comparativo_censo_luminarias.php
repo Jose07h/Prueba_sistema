@@ -62,9 +62,6 @@
                     new IntegerField('user_id', false, true)
                 )
             );
-            if (!$this->GetSecurityInfo()->HasAdminGrant()) {
-                $this->dataset->setRlsPolicy(new RlsPolicy('user_id', GetApplication()->GetCurrentUserId()));
-            }
         }
     
         protected function DoPrepare() {
@@ -76,7 +73,7 @@
             $result = new CompositePageNavigator($this);
             
             $partitionNavigator = new PageNavigator('pnav', $this, $this->dataset);
-            $partitionNavigator->SetRowsPerPage(100);
+            $partitionNavigator->SetRowsPerPage(20);
             $result->AddPageNavigator($partitionNavigator);
             
             return $result;
@@ -89,18 +86,21 @@
     
         protected function setupCharts()
         {
-    
+            $chart = new Chart('Chart01', Chart::TYPE_COLUMN, $this->dataset);
+            $chart->setTitle('');
+            $chart->setHeight(300);
+            $chart->setDomainColumn('municipio', 'municipio', 'string');
+            $chart->addDataColumn('total_luminarias_2021', 'Luminarias 2021', 'int');
+            $chart->addDataColumn('total_luminarias_2019', 'Luminarias 2019', 'float');
+            $chart->addDataColumn('carga_kw_2021', 'Kw 2021', 'float');
+            $chart->addDataColumn('carga_kw_2019', 'Kw 2019', 'float');
+            $this->addChart($chart, 0, ChartPosition::BEFORE_GRID, 12);
         }
     
         protected function getFiltersColumns()
         {
             return array(
                 new FilterColumn($this->dataset, 'municipio', 'municipio', 'Municipio'),
-                new FilterColumn($this->dataset, 'diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias'),
-                new FilterColumn($this->dataset, 'diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal'),
-                new FilterColumn($this->dataset, 'diferencia perdida', 'diferencia perdida', 'Diferencia Perdida'),
-                new FilterColumn($this->dataset, 'diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total'),
-                new FilterColumn($this->dataset, 'user_id', 'user_id', 'User Id'),
                 new FilterColumn($this->dataset, 'total_luminarias_2021', 'total_luminarias_2021', 'Total Luminarias 2021'),
                 new FilterColumn($this->dataset, 'subtotal_kw_2021', 'subtotal_kw_2021', 'Subtotal Kw 2021'),
                 new FilterColumn($this->dataset, 'perdida_kw_2021', 'perdida_kw_2021', 'Perdida Kw 2021'),
@@ -110,7 +110,12 @@
                 new FilterColumn($this->dataset, 'subtotal_kw_2019', 'subtotal_kw_2019', 'Subtotal Kw 2019'),
                 new FilterColumn($this->dataset, 'perdida_kw_2019', 'perdida_kw_2019', 'Perdida Kw 2019'),
                 new FilterColumn($this->dataset, 'carga_kw_2019', 'carga_kw_2019', 'Carga Kw 2019'),
-                new FilterColumn($this->dataset, 'cpd_2019', 'cpd_2019', 'Cpd 2019')
+                new FilterColumn($this->dataset, 'cpd_2019', 'cpd_2019', 'Cpd 2019'),
+                new FilterColumn($this->dataset, 'diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias'),
+                new FilterColumn($this->dataset, 'diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal'),
+                new FilterColumn($this->dataset, 'diferencia perdida', 'diferencia perdida', 'Diferencia Perdida'),
+                new FilterColumn($this->dataset, 'diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total'),
+                new FilterColumn($this->dataset, 'user_id', 'user_id', 'User Id')
             );
         }
     
@@ -118,11 +123,6 @@
         {
             $quickFilter
                 ->addColumn($columns['municipio'])
-                ->addColumn($columns['diferencia_numero_luminarias'])
-                ->addColumn($columns['diferencia_subtotal'])
-                ->addColumn($columns['diferencia perdida'])
-                ->addColumn($columns['diferencia_carga_total'])
-                ->addColumn($columns['user_id'])
                 ->addColumn($columns['total_luminarias_2021'])
                 ->addColumn($columns['subtotal_kw_2021'])
                 ->addColumn($columns['perdida_kw_2021'])
@@ -132,7 +132,11 @@
                 ->addColumn($columns['subtotal_kw_2019'])
                 ->addColumn($columns['perdida_kw_2019'])
                 ->addColumn($columns['carga_kw_2019'])
-                ->addColumn($columns['cpd_2019']);
+                ->addColumn($columns['cpd_2019'])
+                ->addColumn($columns['diferencia_numero_luminarias'])
+                ->addColumn($columns['diferencia_subtotal'])
+                ->addColumn($columns['diferencia perdida'])
+                ->addColumn($columns['diferencia_carga_total']);
         }
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
@@ -142,7 +146,281 @@
     
         protected function setupFilterBuilder(FilterBuilder $filterBuilder, FixedKeysArray $columns)
         {
-    
+            $main_editor = new TextEdit('municipio');
+            
+            $filterBuilder->addColumn(
+                $columns['municipio'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $main_editor,
+                    FilterConditionOperator::BEGINS_WITH => $main_editor,
+                    FilterConditionOperator::ENDS_WITH => $main_editor,
+                    FilterConditionOperator::IS_LIKE => $main_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('total_luminarias_2021_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['total_luminarias_2021'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('subtotal_kw_2021_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['subtotal_kw_2021'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('perdida_kw_2021_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['perdida_kw_2021'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('carga_kw_2021_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['carga_kw_2021'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('cpd_2021_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['cpd_2021'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('total_luminarias_2019_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['total_luminarias_2019'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('subtotal_kw_2019_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['subtotal_kw_2019'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('perdida_kw_2019_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['perdida_kw_2019'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('carga_kw_2019_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['carga_kw_2019'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('cpd_2019_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['cpd_2019'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('diferencia_numero_luminarias_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['diferencia_numero_luminarias'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('diferencia_subtotal_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['diferencia_subtotal'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('diferencia_perdida_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['diferencia perdida'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
+            
+            $main_editor = new TextEdit('diferencia_carga_total_edit');
+            
+            $filterBuilder->addColumn(
+                $columns['diferencia_carga_total'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
         }
     
         protected function AddOperationsColumns(Grid $grid)
@@ -157,72 +435,7 @@
             //
             $column = new TextViewColumn('municipio', 'municipio', 'Municipio', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetMaxLength(100);
-            $column->setMinimalVisibility(ColumnVisibility::PHONE);
-            $column->SetDescription('');
-            $column->SetFixedWidth(null);
-            $grid->AddViewColumn($column);
-            
-            //
-            // View column for diferencia_numero_luminarias field
-            //
-            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $column->setMinimalVisibility(ColumnVisibility::PHONE);
-            $column->SetDescription('');
-            $column->SetFixedWidth(null);
-            $grid->AddViewColumn($column);
-            
-            //
-            // View column for diferencia_subtotal field
-            //
-            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $column->setMinimalVisibility(ColumnVisibility::PHONE);
-            $column->SetDescription('');
-            $column->SetFixedWidth(null);
-            $grid->AddViewColumn($column);
-            
-            //
-            // View column for diferencia perdida field
-            //
-            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $column->setMinimalVisibility(ColumnVisibility::PHONE);
-            $column->SetDescription('');
-            $column->SetFixedWidth(null);
-            $grid->AddViewColumn($column);
-            
-            //
-            // View column for diferencia_carga_total field
-            //
-            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $column->setMinimalVisibility(ColumnVisibility::PHONE);
-            $column->SetDescription('');
-            $column->SetFixedWidth(null);
-            $grid->AddViewColumn($column);
-            
-            //
-            // View column for user_id field
-            //
-            $column = new NumberViewColumn('user_id', 'user_id', 'User Id', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
+            $column->SetMaxLength(75);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -233,7 +446,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2021', 'total_luminarias_2021', 'Total Luminarias 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -246,7 +459,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2021', 'subtotal_kw_2021', 'Subtotal Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -259,7 +472,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2021', 'perdida_kw_2021', 'Perdida Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -272,7 +485,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2021', 'carga_kw_2021', 'Carga Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -285,7 +498,7 @@
             //
             $column = new NumberViewColumn('cpd_2021', 'cpd_2021', 'Cpd 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -298,7 +511,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2019', 'total_luminarias_2019', 'Total Luminarias 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -311,7 +524,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2019', 'subtotal_kw_2019', 'Subtotal Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -324,7 +537,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2019', 'perdida_kw_2019', 'Perdida Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -337,7 +550,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2019', 'carga_kw_2019', 'Carga Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -350,7 +563,59 @@
             //
             $column = new NumberViewColumn('cpd_2019', 'cpd_2019', 'Cpd 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for diferencia_numero_luminarias field
+            //
+            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for diferencia_subtotal field
+            //
+            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for diferencia perdida field
+            //
+            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for diferencia_carga_total field
+            //
+            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
@@ -366,57 +631,7 @@
             //
             $column = new TextViewColumn('municipio', 'municipio', 'Municipio', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetMaxLength(100);
-            $grid->AddSingleRecordViewColumn($column);
-            
-            //
-            // View column for diferencia_numero_luminarias field
-            //
-            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddSingleRecordViewColumn($column);
-            
-            //
-            // View column for diferencia_subtotal field
-            //
-            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddSingleRecordViewColumn($column);
-            
-            //
-            // View column for diferencia perdida field
-            //
-            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddSingleRecordViewColumn($column);
-            
-            //
-            // View column for diferencia_carga_total field
-            //
-            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddSingleRecordViewColumn($column);
-            
-            //
-            // View column for user_id field
-            //
-            $column = new NumberViewColumn('user_id', 'user_id', 'User Id', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
+            $column->SetMaxLength(75);
             $grid->AddSingleRecordViewColumn($column);
             
             //
@@ -424,7 +639,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2021', 'total_luminarias_2021', 'Total Luminarias 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -434,7 +649,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2021', 'subtotal_kw_2021', 'Subtotal Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -444,7 +659,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2021', 'perdida_kw_2021', 'Perdida Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -454,7 +669,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2021', 'carga_kw_2021', 'Carga Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -464,7 +679,7 @@
             //
             $column = new NumberViewColumn('cpd_2021', 'cpd_2021', 'Cpd 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -474,7 +689,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2019', 'total_luminarias_2019', 'Total Luminarias 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -484,7 +699,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2019', 'subtotal_kw_2019', 'Subtotal Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -494,7 +709,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2019', 'perdida_kw_2019', 'Perdida Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -504,7 +719,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2019', 'carga_kw_2019', 'Carga Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -514,7 +729,47 @@
             //
             $column = new NumberViewColumn('cpd_2019', 'cpd_2019', 'Cpd 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for diferencia_numero_luminarias field
+            //
+            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for diferencia_subtotal field
+            //
+            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for diferencia perdida field
+            //
+            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for diferencia_carga_total field
+            //
+            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddSingleRecordViewColumn($column);
@@ -525,54 +780,8 @@
             //
             // Edit column for municipio field
             //
-            $editor = new TextEdit('municipio_edit');
-            $editor->SetMaxLength(255);
+            $editor = new TextAreaEdit('municipio_edit', 50, 8);
             $editColumn = new CustomEditColumn('Municipio', 'municipio', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_numero_luminarias field
-            //
-            $editor = new TextEdit('diferencia_numero_luminarias_edit');
-            $editColumn = new CustomEditColumn('Diferencia Numero Luminarias', 'diferencia_numero_luminarias', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_subtotal field
-            //
-            $editor = new TextEdit('diferencia_subtotal_edit');
-            $editColumn = new CustomEditColumn('Diferencia Subtotal', 'diferencia_subtotal', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for diferencia perdida field
-            //
-            $editor = new TextEdit('diferencia_perdida_edit');
-            $editColumn = new CustomEditColumn('Diferencia Perdida', 'diferencia perdida', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_carga_total field
-            //
-            $editor = new TextEdit('diferencia_carga_total_edit');
-            $editColumn = new CustomEditColumn('Diferencia Carga Total', 'diferencia_carga_total', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddEditColumn($editColumn);
-            
-            //
-            // Edit column for user_id field
-            //
-            $editor = new TextEdit('user_id_edit');
-            $editColumn = new CustomEditColumn('User Id', 'user_id', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -663,6 +872,42 @@
             //
             $editor = new TextEdit('cpd_2019_edit');
             $editColumn = new CustomEditColumn('Cpd 2019', 'cpd_2019', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_numero_luminarias field
+            //
+            $editor = new TextEdit('diferencia_numero_luminarias_edit');
+            $editColumn = new CustomEditColumn('Diferencia Numero Luminarias', 'diferencia_numero_luminarias', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_subtotal field
+            //
+            $editor = new TextEdit('diferencia_subtotal_edit');
+            $editColumn = new CustomEditColumn('Diferencia Subtotal', 'diferencia_subtotal', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for diferencia perdida field
+            //
+            $editor = new TextEdit('diferencia_perdida_edit');
+            $editColumn = new CustomEditColumn('Diferencia Perdida', 'diferencia perdida', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_carga_total field
+            //
+            $editor = new TextEdit('diferencia_carga_total_edit');
+            $editColumn = new CustomEditColumn('Diferencia Carga Total', 'diferencia_carga_total', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -673,54 +918,8 @@
             //
             // Edit column for municipio field
             //
-            $editor = new TextEdit('municipio_edit');
-            $editor->SetMaxLength(255);
+            $editor = new TextAreaEdit('municipio_edit', 50, 8);
             $editColumn = new CustomEditColumn('Municipio', 'municipio', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_numero_luminarias field
-            //
-            $editor = new TextEdit('diferencia_numero_luminarias_edit');
-            $editColumn = new CustomEditColumn('Diferencia Numero Luminarias', 'diferencia_numero_luminarias', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_subtotal field
-            //
-            $editor = new TextEdit('diferencia_subtotal_edit');
-            $editColumn = new CustomEditColumn('Diferencia Subtotal', 'diferencia_subtotal', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
-            
-            //
-            // Edit column for diferencia perdida field
-            //
-            $editor = new TextEdit('diferencia_perdida_edit');
-            $editColumn = new CustomEditColumn('Diferencia Perdida', 'diferencia perdida', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_carga_total field
-            //
-            $editor = new TextEdit('diferencia_carga_total_edit');
-            $editColumn = new CustomEditColumn('Diferencia Carga Total', 'diferencia_carga_total', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddMultiEditColumn($editColumn);
-            
-            //
-            // Edit column for user_id field
-            //
-            $editor = new TextEdit('user_id_edit');
-            $editColumn = new CustomEditColumn('User Id', 'user_id', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -811,6 +1010,42 @@
             //
             $editor = new TextEdit('cpd_2019_edit');
             $editColumn = new CustomEditColumn('Cpd 2019', 'cpd_2019', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_numero_luminarias field
+            //
+            $editor = new TextEdit('diferencia_numero_luminarias_edit');
+            $editColumn = new CustomEditColumn('Diferencia Numero Luminarias', 'diferencia_numero_luminarias', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_subtotal field
+            //
+            $editor = new TextEdit('diferencia_subtotal_edit');
+            $editColumn = new CustomEditColumn('Diferencia Subtotal', 'diferencia_subtotal', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for diferencia perdida field
+            //
+            $editor = new TextEdit('diferencia_perdida_edit');
+            $editColumn = new CustomEditColumn('Diferencia Perdida', 'diferencia perdida', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_carga_total field
+            //
+            $editor = new TextEdit('diferencia_carga_total_edit');
+            $editColumn = new CustomEditColumn('Diferencia Carga Total', 'diferencia_carga_total', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -821,54 +1056,8 @@
             //
             // Edit column for municipio field
             //
-            $editor = new TextEdit('municipio_edit');
-            $editor->SetMaxLength(255);
+            $editor = new TextAreaEdit('municipio_edit', 50, 8);
             $editColumn = new CustomEditColumn('Municipio', 'municipio', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_numero_luminarias field
-            //
-            $editor = new TextEdit('diferencia_numero_luminarias_edit');
-            $editColumn = new CustomEditColumn('Diferencia Numero Luminarias', 'diferencia_numero_luminarias', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_subtotal field
-            //
-            $editor = new TextEdit('diferencia_subtotal_edit');
-            $editColumn = new CustomEditColumn('Diferencia Subtotal', 'diferencia_subtotal', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for diferencia perdida field
-            //
-            $editor = new TextEdit('diferencia_perdida_edit');
-            $editColumn = new CustomEditColumn('Diferencia Perdida', 'diferencia perdida', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for diferencia_carga_total field
-            //
-            $editor = new TextEdit('diferencia_carga_total_edit');
-            $editColumn = new CustomEditColumn('Diferencia Carga Total', 'diferencia_carga_total', $editor, $this->dataset);
-            $editColumn->SetAllowSetToNull(true);
-            $this->ApplyCommonColumnEditProperties($editColumn);
-            $grid->AddInsertColumn($editColumn);
-            
-            //
-            // Edit column for user_id field
-            //
-            $editor = new TextEdit('user_id_edit');
-            $editColumn = new CustomEditColumn('User Id', 'user_id', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -959,6 +1148,42 @@
             //
             $editor = new TextEdit('cpd_2019_edit');
             $editColumn = new CustomEditColumn('Cpd 2019', 'cpd_2019', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_numero_luminarias field
+            //
+            $editor = new TextEdit('diferencia_numero_luminarias_edit');
+            $editColumn = new CustomEditColumn('Diferencia Numero Luminarias', 'diferencia_numero_luminarias', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_subtotal field
+            //
+            $editor = new TextEdit('diferencia_subtotal_edit');
+            $editColumn = new CustomEditColumn('Diferencia Subtotal', 'diferencia_subtotal', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for diferencia perdida field
+            //
+            $editor = new TextEdit('diferencia_perdida_edit');
+            $editColumn = new CustomEditColumn('Diferencia Perdida', 'diferencia perdida', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for diferencia_carga_total field
+            //
+            $editor = new TextEdit('diferencia_carga_total_edit');
+            $editColumn = new CustomEditColumn('Diferencia Carga Total', 'diferencia_carga_total', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -977,57 +1202,7 @@
             //
             $column = new TextViewColumn('municipio', 'municipio', 'Municipio', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetMaxLength(100);
-            $grid->AddPrintColumn($column);
-            
-            //
-            // View column for diferencia_numero_luminarias field
-            //
-            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddPrintColumn($column);
-            
-            //
-            // View column for diferencia_subtotal field
-            //
-            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddPrintColumn($column);
-            
-            //
-            // View column for diferencia perdida field
-            //
-            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddPrintColumn($column);
-            
-            //
-            // View column for diferencia_carga_total field
-            //
-            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddPrintColumn($column);
-            
-            //
-            // View column for user_id field
-            //
-            $column = new NumberViewColumn('user_id', 'user_id', 'User Id', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
+            $column->SetMaxLength(75);
             $grid->AddPrintColumn($column);
             
             //
@@ -1035,7 +1210,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2021', 'total_luminarias_2021', 'Total Luminarias 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1045,7 +1220,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2021', 'subtotal_kw_2021', 'Subtotal Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1055,7 +1230,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2021', 'perdida_kw_2021', 'Perdida Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1065,7 +1240,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2021', 'carga_kw_2021', 'Carga Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1075,7 +1250,7 @@
             //
             $column = new NumberViewColumn('cpd_2021', 'cpd_2021', 'Cpd 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1085,7 +1260,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2019', 'total_luminarias_2019', 'Total Luminarias 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1095,7 +1270,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2019', 'subtotal_kw_2019', 'Subtotal Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1105,7 +1280,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2019', 'perdida_kw_2019', 'Perdida Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1115,7 +1290,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2019', 'carga_kw_2019', 'Carga Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1125,7 +1300,47 @@
             //
             $column = new NumberViewColumn('cpd_2019', 'cpd_2019', 'Cpd 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for diferencia_numero_luminarias field
+            //
+            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for diferencia_subtotal field
+            //
+            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for diferencia perdida field
+            //
+            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for diferencia_carga_total field
+            //
+            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddPrintColumn($column);
@@ -1138,57 +1353,7 @@
             //
             $column = new TextViewColumn('municipio', 'municipio', 'Municipio', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetMaxLength(100);
-            $grid->AddExportColumn($column);
-            
-            //
-            // View column for diferencia_numero_luminarias field
-            //
-            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddExportColumn($column);
-            
-            //
-            // View column for diferencia_subtotal field
-            //
-            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddExportColumn($column);
-            
-            //
-            // View column for diferencia perdida field
-            //
-            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddExportColumn($column);
-            
-            //
-            // View column for diferencia_carga_total field
-            //
-            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddExportColumn($column);
-            
-            //
-            // View column for user_id field
-            //
-            $column = new NumberViewColumn('user_id', 'user_id', 'User Id', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
+            $column->SetMaxLength(75);
             $grid->AddExportColumn($column);
             
             //
@@ -1196,7 +1361,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2021', 'total_luminarias_2021', 'Total Luminarias 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1206,7 +1371,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2021', 'subtotal_kw_2021', 'Subtotal Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1216,7 +1381,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2021', 'perdida_kw_2021', 'Perdida Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1226,7 +1391,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2021', 'carga_kw_2021', 'Carga Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1236,7 +1401,7 @@
             //
             $column = new NumberViewColumn('cpd_2021', 'cpd_2021', 'Cpd 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1246,7 +1411,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2019', 'total_luminarias_2019', 'Total Luminarias 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1256,7 +1421,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2019', 'subtotal_kw_2019', 'Subtotal Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1266,7 +1431,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2019', 'perdida_kw_2019', 'Perdida Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1276,7 +1441,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2019', 'carga_kw_2019', 'Carga Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1286,7 +1451,47 @@
             //
             $column = new NumberViewColumn('cpd_2019', 'cpd_2019', 'Cpd 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for diferencia_numero_luminarias field
+            //
+            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for diferencia_subtotal field
+            //
+            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for diferencia perdida field
+            //
+            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for diferencia_carga_total field
+            //
+            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddExportColumn($column);
@@ -1299,57 +1504,7 @@
             //
             $column = new TextViewColumn('municipio', 'municipio', 'Municipio', $this->dataset);
             $column->SetOrderable(true);
-            $column->SetMaxLength(100);
-            $grid->AddCompareColumn($column);
-            
-            //
-            // View column for diferencia_numero_luminarias field
-            //
-            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddCompareColumn($column);
-            
-            //
-            // View column for diferencia_subtotal field
-            //
-            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddCompareColumn($column);
-            
-            //
-            // View column for diferencia perdida field
-            //
-            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddCompareColumn($column);
-            
-            //
-            // View column for diferencia_carga_total field
-            //
-            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
-            $grid->AddCompareColumn($column);
-            
-            //
-            // View column for user_id field
-            //
-            $column = new NumberViewColumn('user_id', 'user_id', 'User Id', $this->dataset);
-            $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('');
+            $column->SetMaxLength(75);
             $grid->AddCompareColumn($column);
             
             //
@@ -1357,7 +1512,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2021', 'total_luminarias_2021', 'Total Luminarias 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1367,7 +1522,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2021', 'subtotal_kw_2021', 'Subtotal Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1377,7 +1532,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2021', 'perdida_kw_2021', 'Perdida Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1387,7 +1542,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2021', 'carga_kw_2021', 'Carga Kw 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1397,7 +1552,7 @@
             //
             $column = new NumberViewColumn('cpd_2021', 'cpd_2021', 'Cpd 2021', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1407,7 +1562,7 @@
             //
             $column = new NumberViewColumn('total_luminarias_2019', 'total_luminarias_2019', 'Total Luminarias 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1417,7 +1572,7 @@
             //
             $column = new NumberViewColumn('subtotal_kw_2019', 'subtotal_kw_2019', 'Subtotal Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1427,7 +1582,7 @@
             //
             $column = new NumberViewColumn('perdida_kw_2019', 'perdida_kw_2019', 'Perdida Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1437,7 +1592,7 @@
             //
             $column = new NumberViewColumn('carga_kw_2019', 'carga_kw_2019', 'Carga Kw 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1447,7 +1602,47 @@
             //
             $column = new NumberViewColumn('cpd_2019', 'cpd_2019', 'Cpd 2019', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(2);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for diferencia_numero_luminarias field
+            //
+            $column = new NumberViewColumn('diferencia_numero_luminarias', 'diferencia_numero_luminarias', 'Diferencia Numero Luminarias', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for diferencia_subtotal field
+            //
+            $column = new NumberViewColumn('diferencia_subtotal', 'diferencia_subtotal', 'Diferencia Subtotal', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for diferencia perdida field
+            //
+            $column = new NumberViewColumn('diferencia perdida', 'diferencia perdida', 'Diferencia Perdida', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
+            $column->setThousandsSeparator(',');
+            $column->setDecimalSeparator('.');
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for diferencia_carga_total field
+            //
+            $column = new NumberViewColumn('diferencia_carga_total', 'diferencia_carga_total', 'Diferencia Carga Total', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setNumberAfterDecimal(4);
             $column->setThousandsSeparator(',');
             $column->setDecimalSeparator('.');
             $grid->AddCompareColumn($column);
@@ -1499,18 +1694,17 @@
             $result->SetUseFixedHeader(false);
             $result->SetShowLineNumbers(false);
             $result->SetShowKeyColumnsImagesInHeader(false);
+            $result->setAllowSortingByClick(false);
+            $result->setAllowSortingByDialog(false);
             $result->SetViewMode(ViewMode::TABLE);
             $result->setEnableRuntimeCustomization(false);
-            $result->SetShowUpdateLink(false);
             $result->setMultiEditAllowed($this->GetSecurityInfo()->HasEditGrant() && false);
-            $result->setIncludeAllFieldsForMultiEditByDefault(false);
             $result->setTableBordered(false);
             $result->setTableCondensed(false);
-            $result->setReloadPageAfterAjaxOperation(true);
             
             $result->SetHighlightRowAtHover(false);
             $result->SetWidth('');
-    
+            $this->AddOperationsColumns($result);
             $this->AddFieldColumns($result);
             $this->AddSingleRecordViewColumns($result);
             $this->AddEditColumns($result);
@@ -1520,20 +1714,19 @@
             $this->AddExportColumns($result);
             $this->AddMultiUploadColumn($result);
     
-            $this->AddOperationsColumns($result);
+    
             $this->SetShowPageList(true);
-            $this->SetShowTopPageNavigator(false);
+            $this->SetShowTopPageNavigator(true);
             $this->SetShowBottomPageNavigator(true);
             $this->setPrintListAvailable(false);
             $this->setPrintListRecordAvailable(false);
             $this->setPrintOneRecordAvailable(false);
             $this->setAllowPrintSelectedRecords(false);
             $this->setOpenPrintFormInNewTab(false);
-            $this->setExportListAvailable(array('pdf', 'excel'));
-            $this->setExportSelectedRecordsAvailable(array('pdf', 'excel'));
+            $this->setExportListAvailable(array('pdf'));
+            $this->setExportSelectedRecordsAvailable(array('pdf'));
             $this->setExportListRecordAvailable(array());
-            $this->setExportOneRecordAvailable(array());
-            $this->setShowFormErrorsOnTop(true);
+            $this->setExportOneRecordAvailable(array('pdf'));
     
             return $result;
         }

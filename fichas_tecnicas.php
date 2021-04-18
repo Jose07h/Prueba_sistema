@@ -239,7 +239,9 @@
                 '`municipios`');
             $lookupDataset->addFields(
                 array(
-                    new StringField('nombre_municipio', true, true)
+                    new StringField('nombre_municipio', true, true),
+                    new StringField('zona', true),
+                    new StringField('observaciones')
                 )
             );
             $lookupDataset->setOrderByField('nombre_municipio', 'ASC');
@@ -287,7 +289,9 @@
                 '`municipios`');
             $lookupDataset->addFields(
                 array(
-                    new StringField('nombre_municipio', true, true)
+                    new StringField('nombre_municipio', true, true),
+                    new StringField('zona', true),
+                    new StringField('observaciones')
                 )
             );
             $lookupDataset->setOrderByField('nombre_municipio', 'ASC');
@@ -335,7 +339,9 @@
                 '`municipios`');
             $lookupDataset->addFields(
                 array(
-                    new StringField('nombre_municipio', true, true)
+                    new StringField('nombre_municipio', true, true),
+                    new StringField('zona', true),
+                    new StringField('observaciones')
                 )
             );
             $lookupDataset->setOrderByField('nombre_municipio', 'ASC');
@@ -570,7 +576,9 @@
                 '`municipios`');
             $lookupDataset->addFields(
                 array(
-                    new StringField('nombre_municipio', true, true)
+                    new StringField('nombre_municipio', true, true),
+                    new StringField('zona', true),
+                    new StringField('observaciones')
                 )
             );
             $lookupDataset->setOrderByField('nombre_municipio', 'ASC');
@@ -583,7 +591,9 @@
                 '`municipios`');
             $lookupDataset->addFields(
                 array(
-                    new StringField('nombre_municipio', true, true)
+                    new StringField('nombre_municipio', true, true),
+                    new StringField('zona', true),
+                    new StringField('observaciones')
                 )
             );
             $lookupDataset->setOrderByField('nombre_municipio', 'ASC');
@@ -596,7 +606,9 @@
                 '`municipios`');
             $lookupDataset->addFields(
                 array(
-                    new StringField('nombre_municipio', true, true)
+                    new StringField('nombre_municipio', true, true),
+                    new StringField('zona', true),
+                    new StringField('observaciones')
                 )
             );
             $lookupDataset->setOrderByField('nombre_municipio', 'ASC');
